@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <h1>Set Idle Duration</h1>
+
+    <div style="width:60%;">
+      <ul class="tab">
+        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Occurrence')" id="defaultOpen">Occurrence</a></li>
+        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Scheduler')">Scheduler</a></li>
+      </ul>
+
+      <div id="Occurrence" class="tabcontent"><br>
+        {{ userdict['occurrence_form'].hidden_tag() }}
+        {{ userdict['occurrence_form'].weekday(class="", tabindex="1") }}
+        {{ userdict['occurrence_form'].time_start(class="", tabindex="2") }}
+        {{ userdict['occurrence_form'].time_end(class="", tabindex="3") }}<br>
+        {{ userdict['occurrence_form'].submit(class="submit-btn") }}
+      </div>
+
+      <div id="Scheduler" class="tabcontent"><br>
+        <form name="{{ request.url }}" method="post" autocomplete="off">
+          {{ userdict['scheduler_form'].hidden_tag() }}
+          <table>
+            <tr>
+              <td>{{ userdict['scheduler_form'].date_start.label }}</td>
+              <td>{{ userdict['scheduler_form'].date_start(class="datepick", tabindex="1") }}</td>
+              <td>{{ userdict['scheduler_form'].time_start(class="", tabindex="3") }}</td>
+            </tr>
+            <tr>
+              <td>{{ userdict['scheduler_form'].date_end.label }}</td>
+              <td>{{ userdict['scheduler_form'].date_end(class="datepick", tabindex="2") }}</td>
+              <td>{{ userdict['scheduler_form'].time_end(class="", tabindex="4") }}</td>
+            </tr>
+          </table>
+          {{ userdict['scheduler_form'].submit(class="submit-btn") }}
+        </form>
+      </div>
+    </div>
+    <script>
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
+  </div>
+</div>
+
+{% endblock %}

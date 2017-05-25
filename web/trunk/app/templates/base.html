@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% if userdict['title'] %}<title>{{ userdict['title'] }}</title>{% endif %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
+  <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/static/js/scripts.js"></script>
+</head>
+<body id="{% if request.endpoint == 'login' %}login{% endif %}">
+  <nav role="navigation" class="navbar">
+    <div class="navbar-logo">
+      <a href="{{ url_for('index') }}"><img src="static/img/cisco_logo_white.png" alt="Cisco">Energy Controller Service Node</a>
+    </div>
+    <div class="navbar-right" style="{% if request.endpoint == 'login' %}visibility:hidden;{% endif %}">
+      {% if g.user.is_authenticated %}
+      <div class="navbar-menu" id="user-name"><span>{{ g.user.type }}: {{ g.user.username }}</span></div><br>
+      <div>
+        <ul id="user-menu">
+          <li><a href="http://wwwin-tools.cisco.com/dir/reports/{{ g.user.username }}" target="_blank">Profile</a></li>
+          <li class="divider"></li>
+          <li><a href="/setting">Setting</a></li>
+          <li class="divider"></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+      {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>

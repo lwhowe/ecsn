@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <div class="config">
+      <h1 style="margin-top: 0;">{{ userdict['h1'] }}</h1>
+      {% with messages = get_flashed_messages() %}{% if messages %}
+      <ul style="list-style-type: none; padding: 0;">{% for message in messages %}
+        {% if 'Error: ' in message %}<li style="color: red;">{{ message }}</li>
+        {% else %}<li style="color: green;">{{ message }}</li>{% endif %}{% endfor %}
+      </ul>{% endif %}
+      {% endwith %}
+      
+      <form name="{{ request.url }}" method="post" autocomplete="off">
+        {{ userdict['machine_form'].hidden_tag() }}
+        {{ userdict['machine_form'].hostname(class="", placeholder="Hostname", required="required", autocomplete="off", tabindex="1") }}
+        {% for error in userdict['machine_form'].hostname.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {% if request.args.get('m') == 'standalone' %}
+        {{ userdict['machine_form'].vmname(placeholder="Virtual Machine Name", autocomplete="off", style="display:none;") }}
+        {% for error in userdict['machine_form'].vmname.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}
+        {% else %}
+        {{ userdict['machine_form'].vmname(class="", placeholder="Virtual Machine Name", required="required", autocomplete="off", tabindex="2") }}
+        {% for error in userdict['machine_form'].vmname.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {% endif %}
+        {{ userdict['machine_form'].ip(class="", placeholder="IP Address", required="required", autocomplete="off", tabindex="3") }}
+        {% for error in userdict['machine_form'].ip.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {% if request.args.get('m') == 'standalone' %}<input type="text" value="Standalone" disabled><br>
+        {% else %}<input type="text" value="Virtual" disabled><br>
+        {% endif %}
+        <div class="select-wrap">{{ userdict['machine_form'].project(tabindex="4",  required="required") }}</div>
+        {% for error in userdict['machine_form'].project.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br>
+        <div class="select-wrap">{{ userdict['machine_form'].cimc(tabindex="5") }}</div>
+        {% for error in userdict['machine_form'].cimc.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br>
+
+        {% if request.args.get('m') == 'standalone' %}
+        <div class="select-wrap" style="display:none;">{{ userdict['machine_form'].esxi(class="") }}</div>
+        {% for error in userdict['machine_form'].esxi.errors %}&nbsp<span style="color:red; display:none;">{{ error }}</span>{% endfor %}
+        {% else %}
+        <div class="select-wrap">{{ userdict['machine_form'].esxi(tabindex="5") }}</div>
+        {% for error in userdict['machine_form'].esxi.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br>
+        {% endif %}<br>
+        {{ userdict['machine_form'].submit(class="submit-btn", tabindex="6") }}
+        {% if request.args.get('edit') %}
+        <input class="submit-btn" id="cfg-cancel" style="margin-left:0px;" value="Cancel" type="button">
+        <input class="submit-btn" id="cfg-submit" style="margin-left:100px;" name="cfg-submit" value="Delete Entry" type="submit" onclick="return confirm('Do you wish delete entry?');return false;">
+        {% endif %}
+      </form>
+      {% if userdict['machine_list'] %}
+      <table>
+        <tr>
+          <th>Hostname</th>
+          {% if request.args.get('m') == 'virtual' %}
+          <th>VM Name</th>{% endif %}
+          <th>IP Address</th>
+          <th>Type</th>
+          <th>CIMC</th>
+          {% if request.args.get('m') == 'virtual' %}
+          <th>ESXi</th>{% endif %}
+          <th>Project</th>
+          <th>State</th>
+          <th>Status</th>
+          <th>Modify</th>
+        </tr>
+        {% for machine in userdict['machine_list'] %}
+        {% if request.args.get('m') == machine.type %}
+        <tr>
+          <td>{{ machine.host }}</td>
+          {% if request.args.get('m') == 'virtual' %}
+          <td>{{ machine.vm_name }}</td>{% endif %}
+          <td>{{ machine.ip }}</td>
+          <td>{{ machine.type.title() }}</td>
+          <td>{{ userdict['controller_dict'].get(machine.cimc_id, None) }}</td>
+          {% if request.args.get('m') == 'virtual' %}
+          <td>{{ userdict['hypervisor_dict'].get(machine.esxi_id, None) }}</td>{% endif %}
+          <td>{{ userdict['project_dict'].get(machine.project_id|string(), None) }}</td>
+          <td>{{ machine.state_dict[machine.state|string()].title() }}</td>
+          <td>{{ machine.status_dict[machine.status|string()].title() }}</td>
+          <td><a href="{{ url_for('machine') }}?m={{ machine.type }}&edit={{ machine.host }}">Edit</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

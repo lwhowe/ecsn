@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <h1>Machine Activity Data</h1>
+    {% if userdict['act_list'] %}
+      <table style="border-collapse: collapse; width:50%;">
+        <tr>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Date: Created</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Date: Entry</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Machine</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">State</th>
+        </tr>
+        {% for hold in userdict['act_list'] %}
+        <tr>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ loop.index }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ hold.date_created }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ hold.date_entry }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ userdict['machine_dict'][hold.machine_id] }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ hold.state }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <div class="config">
+      <h1>vSphere Hypervisor (VMware ESXi)</h1>
+      {% with messages = get_flashed_messages() %}{% if messages %}
+      <ul style="list-style-type: none; padding: 0;">{% for message in messages %}
+        {% if 'Error: ' in message %}<li style="color: red;">{{ message }}</li>
+        {% else %}<li style="color: green;">{{ message }}</li>{% endif %}{% endfor %}
+      </ul>{% endif %}
+      {% endwith %}
+
+      <form name="config?m=hypervisor" method="post" autocomplete="off">
+        <input style="display:none;" type="text" name="somefakename" />
+        <input style="display:none;" type="password" name="somefakepassword" />
+        {{ userdict['esxi_form'].hidden_tag() }}
+        {{ userdict['esxi_form'].hostname(class="", placeholder="Hostname", autocomplete="off") }}
+        {% for error in userdict['esxi_form'].hostname.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {{ userdict['esxi_form'].ip(class="", placeholder="IP Address", required="required", autocomplete="off") }}
+        {% for error in userdict['esxi_form'].ip.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {{ userdict['esxi_form'].username(class="", placeholder="Username", required="required", autocomplete="off") }}
+        {% for error in userdict['esxi_form'].username.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {{ userdict['esxi_form'].password(class="", placeholder="Password", required="required", autocomplete="off") }}
+        {% for error in userdict['esxi_form'].password.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br><br>
+        {{ userdict['esxi_form'].submit(class="submit-btn") }}
+      </form>
+      {% if userdict['esxi_list'] %}
+      <table>
+        <tr>
+          <th>IP Address</th>
+          <th>Hostname</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Status</th>
+        </tr>
+        {% for esxi in userdict['esxi_list'] %}
+        <tr>
+          <td>{{ esxi.ip }}</td>
+          <td>{{ esxi.host }}</td>
+          <td>{{ esxi.user }}</td>
+          <td>{{ esxi.password }}</td>
+          <td>{{ esxi.status_dict[esxi.status|string()].title() }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

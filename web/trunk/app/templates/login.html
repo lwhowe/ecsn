@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+{{ userdict['result'] }}
+<div class="content login-wrap">
+  <div class="login">
+    <h1>ECSN Login</h1>
+    {% with messages = get_flashed_messages() %}{% if messages %}
+    <ul>{% for message in messages %}
+      <li>{{ message }}</li>{% endfor %}
+    </ul>{% endif %}
+    {% endwith %}
+
+    <form name="login" method="post" autocomplete="off">
+      {{ userdict['login_form'].hidden_tag() }}
+      {{ userdict['login_form'].username(class="textbar", placeholder="Username", required="required") }}
+      {{ userdict['login_form'].password(class="textbar", placeholder="Password", required="required") }}
+
+      <div class="remember">
+        {{ userdict['login_form'].remember_me }}{{ userdict['login_form'].remember_me.label }}
+        <a href="https://pwreset.cisco.com/" target="_blank">Forgot your password?</a>
+      </div>
+      {{ userdict['login_form'].submit(class="btn") }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

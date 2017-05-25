@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <h1>Task Scheduler Data</h1>
+    {% if userdict['task_list'] %}
+      <table style="border-collapse: collapse; width:90%;">
+        <tr>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Date: Created</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Date: Assigned</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Date: Deleted</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Machine</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Type</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Status</th>
+          <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">User</th>
+        </tr>
+        {% for task in userdict['task_list'] %}
+        <tr>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ loop.index }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ task.date_created }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ task.date_assign }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ task.date_deleted }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ userdict['machine_dict'][task.machine_id] }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ task.type }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ task.status }}</td>
+          <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">{{ userdict['user_dict'].get(task.user_id, None) }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+html { font-size:62.5% }
+body { margin:0; padding:0; font-family:arial; font-size:12px; font-size:1.2rem; min-width: 800px; height: 100%; }
+input:-webkit-autofill { -webkit-box-shadow:0 0 0 500px white inset; }  /* remove chrome autocomplete yellow background */
+
+.navbar { background-color: #5f5f5f; height: 50px; width: 100%; position:fixed; z-index:10;}
+.navbar-logo { float: left; padding-top: 10px; }
+.navbar-logo a { color: #fff; font-size: 1.8rem; text-decoration: none; line-height: 30px; padding: 15px 15px; }
+.navbar-logo img { max-height: 25px; vertical-align: middle; padding-right: 15px; padding-bottom: 6px; }
+.navbar-right { float: right; }
+.navbar-right .navbar-menu { color: #fff; font-size: 1.4rem; text-decoration: none; line-height: 30px; padding: 10px 18px; display: inline; float: right;
+    -moz-transition: all .2s ease-in; -o-transition: all .2s ease-in; -webkit-transition: all .2s ease-in; transition: all .2s ease-in; }
+.navbar-right .navbar-menu:hover { background-color: #000; }
+#user-menu { float: right; border: 1px solid #ccc; border-top: none; margin: 0; padding: 0; list-style: none; visibility: hidden; }
+#user-menu li { padding: 0; }
+#user-menu li a { margin: 0; padding: 10px 20px; display: block; width: 60px; height: 100%; text-decoration: none; color: #000; }
+#user-menu li:hover { background-color: #ccc; }
+#user-menu .divider { padding: 0; border-top: 1px solid #ccc }
+
+#login { overflow-y: hidden; }
+.login-wrap { height: 1200px; background-image: url("/static/img/cisco_bg.jpg"); background-repeat: no-repeat; background-size: contain; }
+.login { position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -170px; width: 300px; background-color: #fff; border-radius: 10px; padding: 20px; }
+.login h1 { margin: 0 0 12px; }
+.login ul { color: red; font-weight: bold; list-style-type: none; padding: 0; }
+.login .textbar { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 6px; outline: none; -webkit-box-shadow:0 0 0 500px white inset;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+.login .remember { width: 100%; margin-bottom: 10px;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+.login .remember input { margin:0 4px 0 0; vertical-align: middle; }
+.login .remember label { vertical-align: middle; }
+.login .remember a { color: blue; float: right; text-decoration: none; vertical-align: middle; }
+.login .btn { width: 100%; padding: 12px; border-radius: 6px; color: #fff; font-weight: bold; outline: none; border: 0;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    background: rgba(140,209,255,1);
+    background: -moz-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(31,125,207,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(140,209,255,1)), color-stop(100%, rgba(31,125,207,1)));
+    background: -webkit-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(31,125,207,1) 100%);
+    background: -o-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(31,125,207,1) 100%);
+    background: -ms-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(31,125,207,1) 100%);
+    background: linear-gradient(to bottom, rgba(140,209,255,1) 0%, rgba(31,125,207,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cd1ff', endColorstr='#1f7dcf', GradientType=0 ); }
+.login .btn:hover {
+    background: rgba(140,209,255,1);
+    background: -moz-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(0,94,171,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(140,209,255,1)), color-stop(100%, rgba(0,94,171,1)));
+    background: -webkit-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(0,94,171,1) 100%);
+    background: -o-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(0,94,171,1) 100%);
+    background: -ms-linear-gradient(top, rgba(140,209,255,1) 0%, rgba(0,94,171,1) 100%);
+    background: linear-gradient(to bottom, rgba(140,209,255,1) 0%, rgba(0,94,171,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cd1ff', endColorstr='#005eab', GradientType=0 );
+}
+
+#content { width: 100%; height: inherit; position:absolute; top:50px; }
+#menu-wrapper { float: left; width: 160px; height: inherit; background-color: #f5f5f5; padding: 20px; overflow: hidden; position:fixed;}
+.menu { list-style-type: none; margin: 0; padding: 0; line-height: 16px; text-decoration: none; }
+.menu a { text-decoration: none; color:rgba(88,88,91,1); font-weight:bold; font-size: 1.4rem; }
+.menu a:hover { text-decoration: underline; }
+.menu .menu-li { color:rgba(88,88,91,1); font-weight:bold; font-size: 1.4rem; margin-bottom: 4px; }
+.menu .menu-ul { list-style-type: none; padding-left: 10px; line-height: 1.2;}
+.menu .menu-ul a { text-decoration: none; color:rgba(0,127,171,1); font-weight:bold; font-size: 1.2rem; }
+.menu .menu-ul a:hover { text-decoration: underline; }
+#main { margin-left: 200px; min-height: inherit; padding: 20px; }
+#main h1 { margin-top: 0; }
+#dashboard-wrapper {  }
+.machine-wrapper { margin-top: 20px; /*float: left;*/ }
+.machine-wrapper .blue-color:hover { color: blue; }
+.virtual-wrapper { display: inline-block; margin: auto; height: auto; padding: 10px; border: 1px solid #bbb; margin-top: -1px; margin-right: -1px; }
+.virtual-wrapper span { vertical-align: middle; font-size:1.6rem; font-weight:bold; margin-right: 10px; }
+.virtual-wrapper select { vertical-align:middle; height: 25px; min-width: 20%; padding: 2px 4px; border: 1px solid #ccc; border-radius: 4px; background-color: white; outline: none; }
+.unit { border: 1px solid #bbb; width:250px; display: inline-block; padding: 16px; margin-top: -1px; margin-right: -1px; }
+.unit:hover { background-color: #F0F8FF; }
+.unit .title { font-size: 1.6rem; font-weight:bold; }
+.machine { border: 1px solid #bbb; width: 150px; min-height: 90px; display: inline-block; padding: 10px 10px 12px; margin-top: -1px; margin-right: -1px; }
+.machine:hover { background-color: #f1f1f1; }
+.machine ul { line-height: 1.3; list-style-type: none; margin: 0; padding: 0; width: 100%; }
+.machine li { padding-left: 2px; }
+.machine select { height: 25px; min-width: 80%; padding: 2px 4px; border: 1px solid #ccc; border-radius: 4px; background-color: white; outline: none; }
+.machine .title { padding: 0; font-weight: bold; font-size: 1.6rem; margin-bottom: 4px; }
+.machine .ctrl, .noctrl { padding: 0; margin-top: 2px; }
+.machine .controller { padding: 0; margin-top: 2px; }
+
+.config h1 { margin-top: 0; }
+.config input { min-width: 150px; padding: 5px 8px; margin-bottom: 4px; outline: none; border: 1px solid #ccc; }
+.config select { min-width: 250px; padding: 2px 4px; height: 25px; border: 1px solid #ccc; border-radius: 4px; background-color: transparent; }
+.config .select-wrap { margin-bottom: 4px; height: 25px; display: inline-block; }
+.config .submit-btn { -webkit-appearance: none; padding: 5px 10px; min-width: 100px; border: 1px outset #ccc; background-color: #f1f1f1; }
+.config .submit-btn:active { border: 1px inset #ccc; }
+.config table { margin-top: 20px; border-collapse: collapse; min-width: 60%; }
+.config th { background-color: #5b9bd5; color: #fff; }
+.config td, th { border: 1px solid #dddddd; text-align: left; padding: 8px; }
+.config tr:nth-child(even) { background-color: #ddebf7; }
+
+/* Style the list */
+ul.tab { list-style-type: none; margin: 0; padding: 0; overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; }
+/* Float the list items side by side */
+ul.tab li {float: left;}
+/* Style the links inside the list items */
+ul.tab li a { display: inline-block; color: black; text-align: center; padding: 8px 16px; text-decoration: none; transition: 0.3s; font-size: 1.6rem; }
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+/* Style the tab content */
+.tabcontent { display: none; padding: 6px 12px; border: 1px solid #ccc; border-top: none; }
+/* Fading effect takes 1 second */
+.tabcontent { -webkit-animation: fadeEffect 1s; animation: fadeEffect 1s; }
+@-webkit-keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
+@keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;}}

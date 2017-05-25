@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <div class="config">
+      <h1 style="margin-top: 0;">{{ userdict['h1'] }}</h1>
+      {% with messages = get_flashed_messages() %}{% if messages %}
+      <ul style="list-style-type: none; padding: 0;">{% for message in messages %}
+        {% if 'Error: ' in message %}<li style="color: red;">{{ message }}</li>
+        {% else %}<li style="color: green;">{{ message }}</li>{% endif %}{% endfor %}
+      </ul>{% endif %}
+      {% endwith %}
+      <form name="config" method="post" autocomplete="off">
+        {{ userdict['config_form'].hidden_tag() }}
+        {{ userdict['config_form'].name(class="", placeholder="Name", required="required", autocomplete="off") }}
+        {% for error in userdict['config_form'].name.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br>
+        {{ userdict['config_form'].desc(class="", placeholder="Description", required="required", autocomplete="off") }}
+        {% for error in userdict['config_form'].desc.errors %}
+        &nbsp<span style="color:red;">{{ error }}</span>
+        {% endfor %}<br><br>
+        {{ userdict['config_form'].submit(class="submit-btn") }}
+      </form>
+      {% if userdict['config_list'] %}
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+        {% for config in userdict['config_list'] %}
+        <tr>
+          <td>{{ config.name }}</td>
+          <td>{{ config.description }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

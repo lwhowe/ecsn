@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+    <div class="config">
+      <h1 style="margin-top: 0;">Project Registry</h1>
+      {% with messages = get_flashed_messages() %}{% if messages %}
+      <ul style="list-style-type: none; padding: 0;">{% for message in messages %}
+        {% if 'Error: ' in message %}<li style="color: red;">{{ message }}</li>
+        {% else %}<li style="color: green;">{{ message }}</li>{% endif %}{% endfor %}
+      </ul>{% endif %}
+      {% endwith %}
+      <form name="config" method="post" autocomplete="off">
+        {{ userdict['project_form'].hidden_tag() }}
+        <div class="select-wrap">{{ userdict['project_form'].site() }}</div>
+        {% for error in userdict['project_form'].site.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br>
+        <div class="select-wrap">{{ userdict['project_form'].unit() }}</div>
+        {% for error in userdict['project_form'].unit.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br>
+        <div class="select-wrap">{{ userdict['project_form'].family() }}</div>
+        {% for error in userdict['project_form'].family.errors %}&nbsp<span style="color:red;">{{ error }}</span>{% endfor %}<br><br>
+        {{ userdict['project_form'].submit(class="submit-btn") }}
+      </form>
+      {% if userdict['project_list'] %}
+      <table>
+        <tr>
+          <th>Site</th>
+          <th>Business Unit</th>
+          <th>Product Family</th>
+        </tr>
+        {% for project in userdict['project_list'] %}
+        <tr>
+          <td>{{ userdict['site_dict'][project.site_id|string()]['name'] }}</td>
+          <td>{{ userdict['unit_dict'][project.unit_id|string()]['name'] }}</td>
+          <td>{{ userdict['family_dict'][project.family_id|string()]['name'] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

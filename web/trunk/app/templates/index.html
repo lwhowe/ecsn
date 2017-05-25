@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="content">
+  {% include "menu.html" %}
+  <div id="main">
+
+    {% if userdict['project_dict'] %}
+    {% for site_id, site in userdict['site_dict'].iteritems() %}
+    <div id="dashboard-wrapper">
+      <h1>Dashboard: {{ site['description'] }}</h1><!--
+      {% for project in userdict['project_dict'] %}
+      {% if project.site_id|string() == site_id %}
+      --><div class="unit">
+        <span class="title">{{ userdict['unit_dict'][project.unit_id|string()]['name'] }}: {{ userdict['family_dict'][project.family_id|string()]['name'] }}</span><br>
+        <span>Total Machines: 0</span><br>
+        <div style="display: inline-block;"><span>Power On : {{ userdict['project_stat'][project.id]['on'] }}</span><br><span>Power Off: {{ userdict['project_stat'][project.id]['off'] }}</span></div>
+        <div style="display: inline-block;margin-left:6px;vertical-align:top"><span>[ Active: {{ userdict['project_stat'][project.id]['active'] }}</span>&nbsp&nbsp<span>Idle: {{ userdict['project_stat'][project.id]['idle'] }} ]</span></div>
+      </div><!--
+      {% endif %}
+      {% endfor %}-->
+    </div><br>
+    {% endfor %}
+    {% endif %}
+    {% if userdict['standalone_list'] %}
+    <div class="machine-wrapper">
+      <h1>Machine List: Standalone</h1><!--
+      {% for machine in userdict['standalone_list'] %}
+      --><div class="machine">
+        <ul>
+          <li class="title">{{ machine.host }}</li>
+          <li>IP: {{ machine.ip }}</li>
+          <li>Type: {{ machine.type.title() }}</li>
+          <li>Controller: {{ userdict['controller_dict'].get(machine.cimc_id, None) }}</li>
+          <li class="ctrl">
+            {% if userdict['controller_dict'][machine.cimc_id] %}
+            <select class="blue-color">
+              <option value="soft-shut-down" {% if machine.state == 0 %}selected{% endif %}>CIMC: Power Off</option>
+              <option value="up" {% if machine.state == 1 %}selected{% endif %}>CIMC: Power On</option>
+            </select>
+            {% else %}
+            <select disabled><option value="">CIMC: N/A</option><option value="up">CIMC: Power On</option></select>
+            {% endif %}
+          </li>
+        </ul>
+      </div><!--
+      {% endfor %}
+    --></div>
+    {% endif %}
+    {% if userdict['virtual_dict'] %}
+    <div class="machine-wrapper">
+      <h1>Machine List: Virtual</h1>
+      {% for key, val in userdict['virtual_dict'].iteritems() %}{% if val is iterable %}
+      <div class="virtual-wrapper">
+        <!--<span style="font-size:1.6rem; font-weight:bold; margin-bottom:4px;">Hypervisor: {{ userdict['hypervisor_dict'][key|int()] }}</span>-->
+        <select class="ctrl2 blue-color">
+          <option value="soft-shut-down">ESXI: Power Off</option>
+          <option value="soft-shut-down">CIMC: Power Off</option>
+          <option value="up">CIMC: Power On</option>
+        </select><br><br>
+        <!--
+        {% for machine in val %}
+        --><div class="machine">
+          <ul>
+            <li class="title">{{ machine.host }}</li>
+            <li>IP: {{ machine.ip }}</li>
+            <li>Type: {{ machine.type.title() }}</li>
+            <li>Hypervisor: {{ userdict['hypervisor_dict'].get(machine.esxi_id, None) }}</li>
+            <li>Controller: {{ userdict['controller_dict'].get(machine.cimc_id, None) }}</li>
+            <li class="ctrl">
+              <select class="blue-color">
+                <option value="soft-shut-down" {% if machine.state == 0 %}selected{% endif %}>VM: Power Off</option>
+                <option value="up" {% if machine.state == 1 %}selected{% endif %}>VM: Power On</option>
+              </select>
+            </li>
+          </ul>
+        </div><!--
+        {% endfor %}
+      --></div><br>
+      {% endif %}{% endfor %}
+      {% for key, machine in userdict['virtual_dict'].iteritems() %}{% if machine is not iterable %}
+      <div class="machine" style="display:flex; float:left;">
+        <ul>
+          <li class="title">{{ machine.host }}</li>
+          <li>IP: {{ machine.ip }}</li>
+          <li>Type: {{ machine.type.title() }}</li>
+          <li>Hypervisor: {{ userdict['hypervisor_dict'].get(machine.esxi_id, None) }}</li>
+          <li>Controller: {{ userdict['controller_dict'].get(machine.cimc_id, None) }}</li>
+          <li class="noctrl">
+            <select disabled>
+              <option value="">VM: N/A</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      {% endif %}{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
